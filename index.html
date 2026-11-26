@@ -2039,6 +2039,9 @@
       transform: translateX(-50%) translateY(0);
     }
   </style>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
 </head>
 <body>
 
@@ -2765,24 +2768,16 @@
       } catch {}
     }
 
-    function tryAutoOsPipOnMinimize() {
-      if (!currentTv || userPausedTv || tvVideo.paused) return;
-      if (document.pictureInPictureElement) return;
-      tvVideo.disablePictureInPicture = false;
-      try { tvVideo.autoPictureInPicture = true; } catch {}
-      if (typeof tvVideo.requestPictureInPicture === "function") {
-        tvVideo.requestPictureInPicture().catch(() => {});
-      } else if (typeof tvVideo.webkitSetPresentationMode === "function") {
-        try { tvVideo.webkitSetPresentationMode("picture-in-picture"); } catch {}
-      }
-    }
-
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         const pipRunning = typeof isPipActive === "function" && isPipActive();
-        // When minimizing the app while PIP/Mini-PIP is running, attempt OS-level PIP handoff
-        if (pipRunning && currentTv && !document.pictureInPictureElement) {
-          tryAutoOsPipOnMinimize();
+        // If Mini-PIP is active when minimizing, attempt OS-level PIP handoff automatically
+        if (typeof tvMiniPipActive !== "undefined" && tvMiniPipActive && currentTv && !document.pictureInPictureElement) {
+          if (typeof tvVideo.requestPictureInPicture === "function") {
+            tvVideo.requestPictureInPicture().catch(() => {});
+          } else if (typeof tvVideo.webkitSetPresentationMode === "function") {
+            try { tvVideo.webkitSetPresentationMode("picture-in-picture"); } catch {}
+          }
         }
         if (!bgPlayEnabled && !pipRunning) {
           if (!audioEl.paused) audioEl.pause();
@@ -4368,14 +4363,7 @@
     });
 
     // Pre-prime proxy only if the playing channel is narrow/anamorphic
-    tvVideo.addEventListener("playing", () => {
-      tvVideo.disablePictureInPicture = false;
-      try { tvVideo.autoPictureInPicture = true; } catch {}
-      primePipProxy();
-    });
-    window.addEventListener("pagehide", () => {
-      if (typeof isPipActive === "function" && isPipActive()) tryAutoOsPipOnMinimize();
-    });
+    tvVideo.addEventListener("playing", primePipProxy);
 
     function recoverVideoSurface() {
       if (!currentTv) return;
@@ -4442,9 +4430,6 @@
         document.body.classList.remove("tv-is-fullscreen");
         tvVideoWrap.classList.remove("tv-fs-active", "tv-fs-rotated");
         unlockOrientation();
-      }
-      if (document.fullscreenElement && typeof document.exitFullscreen === "function") {
-        document.exitFullscreen().catch(() => {});
       }
 
       tvVideo.disablePictureInPicture = false;
@@ -5011,6 +4996,13 @@
     updateHeaderFavState();
     syncRadioFilters();
     loadRadioDirectory(false);
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>

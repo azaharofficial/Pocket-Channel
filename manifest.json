@@ -1,0 +1,24 @@
+{
+  "name": "Pocket Channel",
+  "short_name": "Pocket Channel",
+  "description": "Online Radio & Global Live TV",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080c17",
+  "theme_color": "#080c17",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
