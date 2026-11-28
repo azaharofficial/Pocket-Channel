@@ -2057,7 +2057,7 @@
 
     .sync-head {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
@@ -2065,15 +2065,15 @@
     .sync-head-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       min-width: 0;
       flex: 1;
     }
 
     .sync-ico-box {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       background: rgba(99, 102, 241, 0.16);
       border: 1px solid rgba(129, 140, 248, 0.34);
       color: #818cf8;
@@ -2095,16 +2095,17 @@
     }
 
     .sync-title-row h3 {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 700;
       margin: 0;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      line-height: 1.2;
     }
 
     .sync-sub {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       white-space: nowrap;
       overflow: hidden;
@@ -2112,27 +2113,19 @@
       margin-top: 2px;
     }
 
-    .sync-linked-tag {
-      font-size: 0.68rem;
+    .sync-linked-line {
+      font-size: 0.78rem;
       color: var(--text-secondary);
-      max-width: 44%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: right;
-      padding-top: 2px;
-    }
-
-    .sync-stats {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      padding: 2px 2px 0;
+      margin-top: -2px;
     }
 
     .sync-btn-stack {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 9px;
     }
 
     .sync-btn-full {
@@ -2146,7 +2139,7 @@
       box-shadow: var(--glass-highlight);
       color: var(--text-primary);
       font-family: inherit;
-      font-size: 0.83rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -2166,10 +2159,10 @@
     }
 
     .sync-btn-full.indigo {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.90), rgba(79, 70, 229, 0.90));
-      border-color: rgba(129, 140, 248, 0.62);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.94), rgba(79, 70, 229, 0.94));
+      border-color: rgba(129, 140, 248, 0.65);
       color: #ffffff;
-      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.28), var(--glass-highlight);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.30), var(--glass-highlight);
     }
 
     .sync-btn-full.indigo:hover {
@@ -2181,11 +2174,21 @@
       cursor: wait;
     }
 
+    .sync-btn-ico {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .sync-btn-ico.purple { color: #818cf8; }
+    .sync-btn-ico.teal { color: #10b981; }
+
     .sync-field-label {
-      font-size: 0.74rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: var(--text-secondary);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       display: block;
     }
 
@@ -2204,7 +2207,7 @@
 
     .sync-side-btn {
       height: var(--slab-h);
-      padding: 0 13px;
+      padding: 0 14px;
       border-radius: var(--slab-radius);
       border: 1px solid var(--border);
       background: var(--glass-slab);
@@ -2213,7 +2216,7 @@
       box-shadow: var(--glass-highlight);
       color: var(--text-primary);
       font-family: inherit;
-      font-size: 0.80rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -2236,13 +2239,13 @@
 
     .sync-guide-btn {
       height: 30px;
-      padding: 0 11px;
+      padding: 0 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--glass-slab);
-      color: var(--text-secondary);
+      color: var(--text-primary);
       font-family: inherit;
-      font-size: 0.72rem;
+      font-size: 0.73rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -2250,113 +2253,50 @@
       gap: 5px;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      transition: background 0.15s, border-color 0.15s;
     }
 
     .sync-guide-btn:hover {
       background: var(--glass-slab-hover);
       border-color: var(--border-strong);
-      color: var(--text-primary);
     }
 
     .sync-check-row {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
       cursor: pointer;
       user-select: none;
-      padding: 2px 0;
+      padding: 2px 0 0;
     }
 
     .sync-check-row input[type="checkbox"] {
       width: 18px;
       height: 18px;
-      margin-top: 1px;
       accent-color: #6366f1;
       cursor: pointer;
       flex-shrink: 0;
-    }
-
-    .sync-check-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
+      border-radius: 4px;
     }
 
     .sync-check-title {
-      font-size: 0.80rem;
+      font-size: 0.81rem;
       font-weight: 600;
       color: var(--text-primary);
-      line-height: 1.25;
-    }
-
-    .sync-check-sub {
-      font-size: 0.70rem;
-      color: var(--text-secondary);
-    }
-
-    .sync-split-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .sync-pill-btn {
-      height: 38px;
-      border-radius: 11px;
-      border: 1px solid var(--border);
-      font-family: inherit;
-      font-size: 0.79rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: background 0.15s, border-color 0.15s, transform 0.12s;
-    }
-
-    .sync-pill-btn:active {
-      transform: scale(0.98);
-    }
-
-    .sync-pill-btn.teal {
-      background: rgba(16, 185, 129, 0.14);
-      border-color: rgba(16, 185, 129, 0.36);
-      color: var(--brand-accent-text);
-    }
-
-    .sync-pill-btn.teal:hover {
-      background: rgba(16, 185, 129, 0.24);
-    }
-
-    .sync-pill-btn.danger {
-      background: rgba(239, 68, 68, 0.13);
-      border-color: rgba(239, 68, 68, 0.36);
-      color: #f87171;
-    }
-
-    [data-theme="light"] .sync-pill-btn.danger {
-      color: #dc2626;
-    }
-
-    .sync-pill-btn.danger:hover {
-      background: rgba(239, 68, 68, 0.22);
+      line-height: 1.3;
     }
 
     .sync-status-pill {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 2px 9px;
+      padding: 3px 10px;
       border-radius: 999px;
-      font-size: 0.66rem;
-      font-weight: 700;
-      background: rgba(99, 102, 241, 0.16);
-      border: 1px solid rgba(129, 140, 248, 0.36);
-      color: #818cf8;
+      font-size: 0.68rem;
+      font-weight: 600;
+      background: var(--glass-slab);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
     }
 
     .sync-status-pill.connected {
@@ -2700,7 +2640,7 @@
             <div class="sync-head">
               <div class="sync-head-left">
                 <div class="sync-ico-box" aria-hidden="true">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
                     <polyline points="17 21 17 13 7 13 7 21"></polyline>
                     <polyline points="7 3 7 8 15 8"></polyline>
@@ -2713,15 +2653,23 @@
                   <div id="lastOfflineBackupText" class="sync-sub">Last offline backup: Never</div>
                 </div>
               </div>
-              <div id="offlineLinkedBadge" class="sync-linked-tag" title="Selected offline path">Path: Apps/Pocket Apps/Backups/Pocket Channel</div>
             </div>
 
-            <div id="syncStatsLine" class="sync-stats">0 favorite radio • 0 favorite TV • 0 custom channels</div>
+            <div id="offlineLinkedBadge" class="sync-linked-line" title="Selected offline path">Linked: Pocket Channel</div>
 
             <div class="sync-btn-stack">
-              <button type="button" id="exportBackupJsonBtn" class="sync-btn-full indigo">⬇ Export Backup JSON</button>
-              <button type="button" id="importBackupJsonBtn" class="sync-btn-full">⬆ Import Backup JSON</button>
-              <button type="button" id="saveSyncLocallyBtn" class="sync-btn-full">🔄 Save &amp; Sync Locally</button>
+              <button type="button" id="exportBackupJsonBtn" class="sync-btn-full indigo">
+                <svg class="sync-btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="5" y1="20" x2="19" y2="20"></line></svg>
+                <span>Export Encrypted JSON</span>
+              </button>
+              <button type="button" id="importBackupJsonBtn" class="sync-btn-full">
+                <svg class="sync-btn-ico purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="4" x2="19" y2="4"></line><path d="M12 20V8"></path><polyline points="7 13 12 8 17 13"></polyline></svg>
+                <span>Import Backup JSON</span>
+              </button>
+              <button type="button" id="saveSyncLocallyBtn" class="sync-btn-full">
+                <svg class="sync-btn-ico teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Save &amp; Sync Locally</span>
+              </button>
             </div>
 
             <input id="importBackupFileInput" type="file" accept=".json,application/json" style="display:none;" />
@@ -2737,16 +2685,8 @@
 
             <label class="sync-check-row">
               <input id="offlineAutoSyncCheck" type="checkbox" />
-              <span class="sync-check-text">
-                <span class="sync-check-title">Auto-sync local data to linked file every hour</span>
-                <span id="nextHourlySyncText" class="sync-check-sub">Hourly auto-sync off</span>
-              </span>
+              <span class="sync-check-title">Auto-sync local data with linked file after every change</span>
             </label>
-
-            <div class="sync-split-row">
-              <button type="button" id="exportM3uBtn" class="sync-pill-btn teal">Export M3U</button>
-              <button type="button" id="clearAllDataBtn" class="sync-pill-btn danger">Clear All Data</button>
-            </div>
           </div>
 
           <!-- GOOGLE DRIVE ONLINE SYNC -->
@@ -2755,26 +2695,41 @@
               <div class="sync-head-left">
                 <div class="sync-title-wrap">
                   <div class="sync-title-row">
-                    <h3>☁ Google Drive</h3>
-                    <span id="gdriveStatusPill" class="sync-status-pill"><span class="dot"></span> Ready</span>
+                    <h3>
+                      <svg class="sync-btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                      <span>Google Drive</span>
+                    </h3>
+                    <span id="gdriveStatusPill" class="sync-status-pill"><span class="dot"></span> Not Connected</span>
                   </div>
-                  <div id="lastDriveSyncText" class="sync-sub">Last Google Drive sync: Never</div>
                 </div>
               </div>
               <button type="button" id="gdriveGuideBtn" class="sync-guide-btn">? Setup Guide</button>
             </div>
 
-            <button type="button" id="gdriveSyncBtn" class="sync-btn-full indigo">☁ One-Click Sync with Google Drive</button>
+            <div id="lastDriveSyncText" class="sync-sub" style="margin-top:-2px;">Last Google Drive sync: Never</div>
+
+            <button type="button" id="gdriveSyncBtn" class="sync-btn-full indigo">
+              <svg class="sync-btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+              <span>One-Click Sync with Google Drive</span>
+            </button>
 
             <div class="sync-input-row">
-              <input id="gdriveClientIdInput" class="slab-input" type="text" placeholder="Google OAuth Client ID (.apps.googleusercontent.com)" autocomplete="off" />
-              <button type="button" id="gdriveConnectBtn" class="sync-side-btn">🔗 Connect</button>
+              <input id="gdriveClientIdInput" class="slab-input" type="text" placeholder="Google OAuth Client ID (one-time setup)" autocomplete="off" />
+              <button type="button" id="gdriveConnectBtn" class="sync-side-btn">
+                <svg class="sync-btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>Connect</span>
+              </button>
             </div>
 
             <div>
               <label for="gdriveFolderPathInput" class="sync-field-label">Drive Folder Path</label>
               <input id="gdriveFolderPathInput" class="slab-input" type="text" style="width:100%;" value="Apps/Pocket Apps/Backups/Pocket Channel" placeholder="Apps/Pocket Apps/Backups/Pocket Channel" autocomplete="off" />
             </div>
+
+            <label class="sync-check-row">
+              <input id="gdriveAutoSyncCheck" type="checkbox" />
+              <span class="sync-check-title">Auto-sync with Google Drive after every change</span>
+            </label>
           </div>
 
           <!-- ABOUT SECTION -->
@@ -3739,7 +3694,7 @@
           if (radioFavs.some(f => f.id === st.id)) radioFavs = radioFavs.filter(f => f.id !== st.id);
           else radioFavs = [st, ...radioFavs];
           localStorage.setItem("pc_v10_radio_favs", JSON.stringify(radioFavs));
-          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
+          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI(); if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
           syncRadioFilters();
           renderRadio(radioProbing);
         });
@@ -4266,7 +4221,7 @@
           if (tvFavs.some(f => f.id === ch.id)) tvFavs = tvFavs.filter(f => f.id !== ch.id);
           else tvFavs = [ch, ...tvFavs];
           localStorage.setItem("pc_v10_tv_favs", JSON.stringify(tvFavs));
-          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
+          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI(); if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
           syncTvFilters();
           renderTv(tvProbing);
         });
@@ -5440,6 +5395,7 @@
        ========================================================== */
     themeSelect.addEventListener("change", e => {
       applyTheme(e.target.value);
+      if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
       showToast(`Theme set to ${e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)}`);
     });
 
@@ -5464,6 +5420,7 @@
     bgPlayToggle.addEventListener("change", () => {
       bgPlayEnabled = bgPlayToggle.checked;
       localStorage.setItem("pc_v10_bgplay", String(bgPlayEnabled));
+      if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
       showToast(bgPlayEnabled ? "Background audio enabled" : "Background audio disabled");
     });
 
@@ -5488,7 +5445,7 @@
         };
         customRadio = [st, ...customRadio];
         localStorage.setItem("pc_v10_custom_radio", JSON.stringify(customRadio));
-        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
+        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI(); if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
         syncRadioFilters();
         switchView("radio");
         playRadio(st);
@@ -5504,7 +5461,7 @@
         };
         customTv = [ch, ...customTv];
         localStorage.setItem("pc_v10_custom_tv", JSON.stringify(customTv));
-        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
+        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI(); if (typeof scheduleAutoSyncOnChange === "function") scheduleAutoSyncOnChange();
         if (tvLoaded) syncTvFilters();
         switchView("livetv");
         playTv(ch);
@@ -5526,10 +5483,10 @@
       offlinePath: "pc_v10_offline_path",
       offlineLast: "pc_v10_offline_last",
       offlineAuto: "pc_v10_offline_autosync",
-      offlineNext: "pc_v10_offline_next_sync",
       drivePath: "pc_v10_gdrive_path",
       driveClientId: "pc_v10_gdrive_client_id",
-      driveLast: "pc_v10_gdrive_last"
+      driveLast: "pc_v10_gdrive_last",
+      driveAuto: "pc_v10_gdrive_autosync"
     };
 
     const offlineFolderPathInput = document.getElementById("offlineFolderPathInput");
@@ -5537,15 +5494,11 @@
     const offlineFolderFallbackInput = document.getElementById("offlineFolderFallbackInput");
     const offlineLinkedBadge = document.getElementById("offlineLinkedBadge");
     const lastOfflineBackupText = document.getElementById("lastOfflineBackupText");
-    const syncStatsLine = document.getElementById("syncStatsLine");
     const exportBackupJsonBtn = document.getElementById("exportBackupJsonBtn");
     const importBackupJsonBtn = document.getElementById("importBackupJsonBtn");
     const importBackupFileInput = document.getElementById("importBackupFileInput");
     const saveSyncLocallyBtn = document.getElementById("saveSyncLocallyBtn");
     const offlineAutoSyncCheck = document.getElementById("offlineAutoSyncCheck");
-    const nextHourlySyncText = document.getElementById("nextHourlySyncText");
-    const exportM3uBtn = document.getElementById("exportM3uBtn");
-    const clearAllDataBtn = document.getElementById("clearAllDataBtn");
 
     const gdriveStatusPill = document.getElementById("gdriveStatusPill");
     const lastDriveSyncText = document.getElementById("lastDriveSyncText");
@@ -5553,6 +5506,7 @@
     const gdriveClientIdInput = document.getElementById("gdriveClientIdInput");
     const gdriveConnectBtn = document.getElementById("gdriveConnectBtn");
     const gdriveFolderPathInput = document.getElementById("gdriveFolderPathInput");
+    const gdriveAutoSyncCheck = document.getElementById("gdriveAutoSyncCheck");
     const gdriveGuideBtn = document.getElementById("gdriveGuideBtn");
     const gdriveGuideModal = document.getElementById("gdriveGuideModal");
     const currentOriginCode = document.getElementById("currentOriginCode");
@@ -5561,6 +5515,8 @@
     let gdriveAccessToken = null;
     let gdriveTokenExpiry = 0;
     let gisScriptPromise = null;
+    let autoSyncTimer = null;
+    let isApplyingBackup = false;
 
     function normalizeSyncPath(raw) {
       const cleaned = String(raw || "")
@@ -5589,11 +5545,6 @@
       }
     }
 
-    function formatHHMM(ts) {
-      const d = new Date(ts);
-      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-    }
-
     function buildBackupPayload() {
       return {
         app: "Pocket Channel",
@@ -5615,6 +5566,69 @@
       };
     }
 
+    /* ---------- Seamless AES-GCM Encryption / Decryption for Backup JSON ---------- */
+    const ENC_SECRET = "PocketChannel::BackupKey::v1::Azahar";
+    const ENC_SALT = new Uint8Array([80, 99, 75, 101, 121, 50, 48, 50, 54, 83, 97, 108, 116, 86, 49, 33]);
+
+    function bytesToB64(bytes) {
+      let bin = "";
+      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return btoa(bin);
+    }
+
+    function b64ToBytes(b64) {
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function deriveBackupCryptoKey() {
+      const enc = new TextEncoder();
+      const keyMat = await crypto.subtle.importKey(
+        "raw", enc.encode(ENC_SECRET), { name: "PBKDF2" }, false, ["deriveKey"]
+      );
+      return crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: ENC_SALT, iterations: 100000, hash: "SHA-256" },
+        keyMat,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["encrypt", "decrypt"]
+      );
+    }
+
+    async function encryptBackupPayload(payload) {
+      if (window.crypto && crypto.subtle) {
+        try {
+          const key = await deriveBackupCryptoKey();
+          const iv = crypto.getRandomValues(new Uint8Array(12));
+          const encoded = new TextEncoder().encode(JSON.stringify(payload));
+          const cipherBuf = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded);
+          return {
+            app: "Pocket Channel",
+            version: "1.0",
+            encrypted: true,
+            alg: "AES-GCM",
+            iv: bytesToB64(iv),
+            payload: bytesToB64(new Uint8Array(cipherBuf)),
+            updatedAt: payload.updatedAt
+          };
+        } catch {}
+      }
+      return payload;
+    }
+
+    async function decodeBackupObject(obj) {
+      if (obj && obj.encrypted && obj.iv && obj.payload && window.crypto && crypto.subtle) {
+        const key = await deriveBackupCryptoKey();
+        const iv = b64ToBytes(obj.iv);
+        const cipher = b64ToBytes(obj.payload);
+        const plainBuf = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, cipher);
+        return JSON.parse(new TextDecoder().decode(plainBuf));
+      }
+      return obj;
+    }
+
     function mergeChannelLists(localArr, remoteArr) {
       const map = new Map();
       const addAll = arr => {
@@ -5634,61 +5648,63 @@
       if (!payload || !payload.data || typeof payload.data !== "object") {
         throw new Error("Invalid Pocket Channel backup file");
       }
-      const d = payload.data;
-      if (merge) {
-        radioFavs = mergeChannelLists(radioFavs, d.radioFavs);
-        tvFavs = mergeChannelLists(tvFavs, d.tvFavs);
-        customRadio = mergeChannelLists(customRadio, d.customRadio);
-        customTv = mergeChannelLists(customTv, d.customTv);
-      } else {
-        radioFavs = Array.isArray(d.radioFavs) ? d.radioFavs : [];
-        tvFavs = Array.isArray(d.tvFavs) ? d.tvFavs : [];
-        customRadio = Array.isArray(d.customRadio) ? d.customRadio : [];
-        customTv = Array.isArray(d.customTv) ? d.customTv : [];
-      }
+      isApplyingBackup = true;
+      try {
+        const d = payload.data;
+        if (merge) {
+          radioFavs = mergeChannelLists(radioFavs, d.radioFavs);
+          tvFavs = mergeChannelLists(tvFavs, d.tvFavs);
+          customRadio = mergeChannelLists(customRadio, d.customRadio);
+          customTv = mergeChannelLists(customTv, d.customTv);
+        } else {
+          radioFavs = Array.isArray(d.radioFavs) ? d.radioFavs : [];
+          tvFavs = Array.isArray(d.tvFavs) ? d.tvFavs : [];
+          customRadio = Array.isArray(d.customRadio) ? d.customRadio : [];
+          customTv = Array.isArray(d.customTv) ? d.customTv : [];
+        }
 
-      localStorage.setItem("pc_v10_radio_favs", JSON.stringify(radioFavs));
-      localStorage.setItem("pc_v10_tv_favs", JSON.stringify(tvFavs));
-      localStorage.setItem("pc_v10_custom_radio", JSON.stringify(customRadio));
-      localStorage.setItem("pc_v10_custom_tv", JSON.stringify(customTv));
+        localStorage.setItem("pc_v10_radio_favs", JSON.stringify(radioFavs));
+        localStorage.setItem("pc_v10_tv_favs", JSON.stringify(tvFavs));
+        localStorage.setItem("pc_v10_custom_radio", JSON.stringify(customRadio));
+        localStorage.setItem("pc_v10_custom_tv", JSON.stringify(customTv));
 
-      if (d.settings && typeof d.settings === "object") {
-        if (d.settings.themeMode) {
-          applyTheme(d.settings.themeMode);
-          themeSelect.value = d.settings.themeMode;
-          syncGlassSelectLabel(themeSelect);
+        if (d.settings && typeof d.settings === "object") {
+          if (d.settings.themeMode) {
+            applyTheme(d.settings.themeMode);
+            themeSelect.value = d.settings.themeMode;
+            syncGlassSelectLabel(themeSelect);
+          }
+          if (typeof d.settings.bgPlayEnabled === "boolean") {
+            bgPlayEnabled = d.settings.bgPlayEnabled;
+            bgPlayToggle.checked = bgPlayEnabled;
+            localStorage.setItem("pc_v10_bgplay", String(bgPlayEnabled));
+          }
+          if (d.settings.tvAspectMode) applyTvAspectMode(d.settings.tvAspectMode, false);
+          if (d.settings.tvPlaybackSpeed) {
+            tvPlaybackSpeed = parseFloat(d.settings.tvPlaybackSpeed) || 1;
+            localStorage.setItem("pc_v16_tv_speed", String(tvPlaybackSpeed));
+            tvVideo.playbackRate = tvPlaybackSpeed;
+            syncTvSpeedBtnUI();
+          }
+          if (d.settings.tvQualityPreset) {
+            applyTvQualityPreset(d.settings.tvQualityPreset, false);
+            syncTvQualityBtnUI();
+          }
         }
-        if (typeof d.settings.bgPlayEnabled === "boolean") {
-          bgPlayEnabled = d.settings.bgPlayEnabled;
-          bgPlayToggle.checked = bgPlayEnabled;
-          localStorage.setItem("pc_v10_bgplay", String(bgPlayEnabled));
-        }
-        if (d.settings.tvAspectMode) applyTvAspectMode(d.settings.tvAspectMode, false);
-        if (d.settings.tvPlaybackSpeed) {
-          tvPlaybackSpeed = parseFloat(d.settings.tvPlaybackSpeed) || 1;
-          localStorage.setItem("pc_v16_tv_speed", String(tvPlaybackSpeed));
-          tvVideo.playbackRate = tvPlaybackSpeed;
-          syncTvSpeedBtnUI();
-        }
-        if (d.settings.tvQualityPreset) {
-          applyTvQualityPreset(d.settings.tvQualityPreset, false);
-          syncTvQualityBtnUI();
-        }
-      }
 
-      syncRadioFilters();
-      renderRadio(radioProbing);
-      if (tvLoaded) {
-        syncTvFilters();
-        renderTv(tvProbing);
+        syncRadioFilters();
+        renderRadio(radioProbing);
+        if (tvLoaded) {
+          syncTvFilters();
+          renderTv(tvProbing);
+        }
+        updateSyncSummaryUI();
+      } finally {
+        isApplyingBackup = false;
       }
-      updateSyncSummaryUI();
     }
 
     function updateSyncSummaryUI() {
-      const customTotal = customRadio.length + customTv.length;
-      syncStatsLine.textContent = `${radioFavs.length} favorite radio • ${tvFavs.length} favorite TV • ${customTotal} custom channels`;
-
       const lastOff = parseInt(localStorage.getItem(SYNC_KEYS.offlineLast) || "0", 10);
       lastOfflineBackupText.textContent = `Last offline backup: ${formatSyncTimestamp(lastOff)}`;
 
@@ -5696,24 +5712,24 @@
       lastDriveSyncText.textContent = `Last Google Drive sync: ${formatSyncTimestamp(lastDrv)}`;
 
       const offPath = normalizeSyncPath(offlineFolderPathInput.value);
-      offlineLinkedBadge.textContent = linkedDirHandle
-        ? `Linked: ${linkedDirHandle.name}/${BACKUP_FILENAME}`
-        : `Path: ${offPath}`;
+      const displayTarget = linkedDirHandle ? linkedDirHandle.name : offPath;
+      offlineLinkedBadge.textContent = `Linked: ${displayTarget}`;
       offlineLinkedBadge.title = linkedDirHandle
-        ? `Linked local folder: ${linkedDirHandle.name}`
+        ? `Linked local folder: ${linkedDirHandle.name}/${BACKUP_FILENAME}`
         : offPath;
+    }
 
-      const autoOn = offlineAutoSyncCheck.checked;
-      if (autoOn) {
-        let nextTs = parseInt(localStorage.getItem(SYNC_KEYS.offlineNext) || "0", 10);
-        if (!nextTs || nextTs < Date.now()) {
-          nextTs = Date.now() + 60 * 60 * 1000;
-          localStorage.setItem(SYNC_KEYS.offlineNext, String(nextTs));
+    function scheduleAutoSyncOnChange() {
+      if (isApplyingBackup) return;
+      clearTimeout(autoSyncTimer);
+      autoSyncTimer = setTimeout(async () => {
+        if (offlineAutoSyncCheck.checked && linkedDirHandle) {
+          try { await writeBackupToLinkedDir(false); } catch {}
         }
-        nextHourlySyncText.textContent = `Next hourly sync: ${formatHHMM(nextTs)}`;
-      } else {
-        nextHourlySyncText.textContent = "Hourly auto-sync off";
-      }
+        if (gdriveAutoSyncCheck.checked && gdriveAccessToken && Date.now() < gdriveTokenExpiry - 60000) {
+          try { await syncWithGoogleDrive(true); } catch {}
+        }
+      }, 1500);
     }
 
     /* ---------- IndexedDB Persistence for File System Directory Handle ---------- */
@@ -5783,27 +5799,24 @@
       const ok = await verifyDirPermission(linkedDirHandle, askUser);
       if (!ok) return false;
 
-      // Read existing file if present and merge so nothing is lost
       let existingData = null;
       try {
         const existingHandle = await linkedDirHandle.getFileHandle(BACKUP_FILENAME, { create: false });
         const existingFile = await existingHandle.getFile();
-        existingData = JSON.parse(await existingFile.text());
+        existingData = await decodeBackupObject(JSON.parse(await existingFile.text()));
       } catch {}
 
       if (existingData && existingData.data) {
         applyBackupPayload(existingData, true);
       }
 
+      const encryptedObj = await encryptBackupPayload(buildBackupPayload());
       const fileHandle = await linkedDirHandle.getFileHandle(BACKUP_FILENAME, { create: true });
       const writable = await fileHandle.createWritable();
-      await writable.write(JSON.stringify(buildBackupPayload(), null, 2));
+      await writable.write(JSON.stringify(encryptedObj, null, 2));
       await writable.close();
 
       localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
-      if (offlineAutoSyncCheck.checked) {
-        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
-      }
       updateSyncSummaryUI();
       return true;
     }
@@ -5844,7 +5857,6 @@
           if (err && err.name === "AbortError") return;
         }
       }
-      // Fallback for Android Chrome / WebView APK without showDirectoryPicker
       offlineFolderFallbackInput.value = "";
       offlineFolderFallbackInput.click();
     });
@@ -5865,9 +5877,9 @@
       }
     });
 
-    exportBackupJsonBtn.addEventListener("click", () => {
-      const json = JSON.stringify(buildBackupPayload(), null, 2);
-      downloadTextFile(BACKUP_FILENAME, json, "application/json");
+    exportBackupJsonBtn.addEventListener("click", async () => {
+      const encObj = await encryptBackupPayload(buildBackupPayload());
+      downloadTextFile(BACKUP_FILENAME, JSON.stringify(encObj, null, 2), "application/json");
       localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
       updateSyncSummaryUI();
       showToast(`Exported ${BACKUP_FILENAME}`);
@@ -5883,8 +5895,9 @@
       if (!file) return;
       try {
         const text = await file.text();
-        const parsed = JSON.parse(text);
-        applyBackupPayload(parsed, true);
+        const rawObj = JSON.parse(text);
+        const decoded = await decodeBackupObject(rawObj);
+        applyBackupPayload(decoded, true);
         localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
         updateSyncSummaryUI();
         showToast("Backup imported & merged");
@@ -5903,12 +5916,9 @@
           }
         } catch {}
       }
-      const json = JSON.stringify(buildBackupPayload(), null, 2);
-      downloadTextFile(BACKUP_FILENAME, json, "application/json");
+      const encObj = await encryptBackupPayload(buildBackupPayload());
+      downloadTextFile(BACKUP_FILENAME, JSON.stringify(encObj, null, 2), "application/json");
       localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
-      if (offlineAutoSyncCheck.checked) {
-        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
-      }
       updateSyncSummaryUI();
       showToast(`Saved locally (${normalizeSyncPath(offlineFolderPathInput.value)})`);
     });
@@ -5916,71 +5926,13 @@
     offlineAutoSyncCheck.addEventListener("change", () => {
       const on = offlineAutoSyncCheck.checked;
       localStorage.setItem(SYNC_KEYS.offlineAuto, String(on));
-      if (on) {
-        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
-        showToast("Hourly local auto-sync enabled");
-      } else {
-        showToast("Hourly local auto-sync disabled");
-      }
-      updateSyncSummaryUI();
-    });
-
-    setInterval(async () => {
-      if (!offlineAutoSyncCheck.checked) return;
-      const nextTs = parseInt(localStorage.getItem(SYNC_KEYS.offlineNext) || "0", 10);
-      if (nextTs && Date.now() >= nextTs) {
-        if (linkedDirHandle) {
-          await writeBackupToLinkedDir(false);
-        } else {
-          localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
-          updateSyncSummaryUI();
-        }
-      }
-    }, 60 * 1000);
-
-    exportM3uBtn.addEventListener("click", () => {
-      const lines = ["#EXTM3U"];
-      const allExport = [
-        ...radioFavs.map(x => ({ ...x, group: "Favorite Radio" })),
-        ...tvFavs.map(x => ({ ...x, group: "Favorite Live TV" })),
-        ...customRadio.map(x => ({ ...x, group: "Custom Radio" })),
-        ...customTv.map(x => ({ ...x, group: "Custom Live TV" }))
-      ];
-      if (!allExport.length) {
-        showToast("No favorites or custom channels to export");
-        return;
-      }
-      for (const ch of allExport) {
-        lines.push(`#EXTINF:-1 group-title="${ch.group}",${ch.name}`);
-        lines.push(ch.url);
-      }
-      downloadTextFile("pocket-channel-favorites.m3u", lines.join("\n"), "audio/x-mpegurl");
-      showToast(`Exported ${allExport.length} channels to M3U`);
-    });
-
-    clearAllDataBtn.addEventListener("click", () => {
-      if (!confirm("Clear all favorite Radio, favorite Live TV, and custom channels?")) return;
-      radioFavs = [];
-      tvFavs = [];
-      customRadio = [];
-      customTv = [];
-      localStorage.setItem("pc_v10_radio_favs", "[]");
-      localStorage.setItem("pc_v10_tv_favs", "[]");
-      localStorage.setItem("pc_v10_custom_radio", "[]");
-      localStorage.setItem("pc_v10_custom_tv", "[]");
-      syncRadioFilters();
-      renderRadio(radioProbing);
-      if (tvLoaded) {
-        syncTvFilters();
-        renderTv(tvProbing);
-      }
-      updateSyncSummaryUI();
-      showToast("All saved favorites & custom channels cleared");
+      showToast(on ? "Auto-sync local data enabled" : "Auto-sync local data disabled");
     });
 
     /* ---------- Google Drive Online Sync ---------- */
     gdriveClientIdInput.value = localStorage.getItem(SYNC_KEYS.driveClientId) || "";
     gdriveFolderPathInput.value = normalizeSyncPath(localStorage.getItem(SYNC_KEYS.drivePath) || DEFAULT_SYNC_PATH);
+    gdriveAutoSyncCheck.checked = localStorage.getItem(SYNC_KEYS.driveAuto) === "true";
 
     gdriveClientIdInput.addEventListener("input", () => {
       localStorage.setItem(SYNC_KEYS.driveClientId, gdriveClientIdInput.value.trim());
@@ -5995,6 +5947,12 @@
       const norm = normalizeSyncPath(gdriveFolderPathInput.value);
       gdriveFolderPathInput.value = norm;
       localStorage.setItem(SYNC_KEYS.drivePath, norm);
+    });
+
+    gdriveAutoSyncCheck.addEventListener("change", () => {
+      const on = gdriveAutoSyncCheck.checked;
+      localStorage.setItem(SYNC_KEYS.driveAuto, String(on));
+      showToast(on ? "Auto-sync with Google Drive enabled" : "Auto-sync with Google Drive disabled");
     });
 
     function setGdrivePill(cls, text) {
@@ -6104,7 +6062,7 @@
       return parentId;
     }
 
-    async function syncWithGoogleDrive() {
+    async function syncWithGoogleDrive(silent = false) {
       gdriveSyncBtn.disabled = true;
       setGdrivePill("syncing", "Syncing...");
       try {
@@ -6121,20 +6079,21 @@
 
         let fileId = (found.files && found.files.length) ? found.files[0].id : null;
 
-        // If remote backup exists, download and merge so both devices stay in sync
         if (fileId) {
           const dlRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
             headers: { Authorization: `Bearer ${gdriveAccessToken}` }
           });
           if (dlRes.ok) {
             try {
-              const remoteJson = await dlRes.json();
-              if (remoteJson && remoteJson.data) applyBackupPayload(remoteJson, true);
+              const remoteObj = await dlRes.json();
+              const decoded = await decodeBackupObject(remoteObj);
+              if (decoded && decoded.data) applyBackupPayload(decoded, true);
             } catch {}
           }
         }
 
-        const payloadStr = JSON.stringify(buildBackupPayload(), null, 2);
+        const encObj = await encryptBackupPayload(buildBackupPayload());
+        const payloadStr = JSON.stringify(encObj, null, 2);
         const boundary = "pocket_channel_sync_boundary_" + Date.now();
         const metadata = fileId
           ? { name: BACKUP_FILENAME, mimeType: "application/json" }
@@ -6165,12 +6124,12 @@
         if (!upRes.ok) throw new Error(`Upload failed (${upRes.status})`);
 
         localStorage.setItem(SYNC_KEYS.driveLast, String(Date.now()));
-        setGdrivePill("connected", "Synced");
+        setGdrivePill("connected", "Connected");
         updateSyncSummaryUI();
-        showToast(`Synced to Drive: ${folderPath}`);
+        if (!silent) showToast(`Synced to Drive: ${folderPath}`);
       } catch (err) {
-        setGdrivePill("", "Ready");
-        if (err && err.message !== "Missing Client ID") {
+        setGdrivePill("", gdriveAccessToken ? "Connected" : "Not Connected");
+        if (!silent && err && err.message !== "Missing Client ID") {
           showToast(err.message || "Google Drive sync failed");
         }
       } finally {
@@ -6184,14 +6143,14 @@
         await requestGdriveToken("consent");
         showToast("Google Drive connected");
       } catch (err) {
-        setGdrivePill("", "Ready");
+        setGdrivePill("", "Not Connected");
         if (err && err.message !== "Missing Client ID") {
           showToast(err.message || "Connection cancelled");
         }
       }
     });
 
-    gdriveSyncBtn.addEventListener("click", () => syncWithGoogleDrive());
+    gdriveSyncBtn.addEventListener("click", () => syncWithGoogleDrive(false));
 
     // Setup Guide Modal
     function openGdriveGuide() {
