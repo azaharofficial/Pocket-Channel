@@ -2038,7 +2038,53 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
-  
+
+    /* Top-Right Floating Emerald Green Sync Toast (Matches Pocket Status Style) */
+    .sync-top-strip {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 12px);
+      right: 14px;
+      z-index: 265;
+      width: fit-content;
+      max-width: calc(100vw - 28px);
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #0ea96b;
+      border: 1px solid rgba(110, 231, 183, 0.35);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36), 0 4px 14px rgba(14, 169, 107, 0.32);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      transform: translateY(-16px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease;
+    }
+
+    .sync-top-strip.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .sync-top-strip.error {
+      background: #dc2626;
+      border-color: rgba(252, 165, 165, 0.35);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.36), 0 4px 14px rgba(220, 38, 38, 0.32);
+    }
+
+    .sync-top-strip-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100vw - 64px);
+    }
+
     /* ==========================================================
        OFFLINE & GOOGLE DRIVE SYNC CARDS (GLASSMORPHIC)
        ========================================================== */
@@ -2425,6 +2471,7 @@
   </header>
 
   <div id="toast" class="toast"></div>
+  <div id="syncTopStrip" class="sync-top-strip" role="status" aria-live="polite"><span id="syncTopStripText" class="sync-top-strip-text"></span></div>
 
   <main class="app-main">
 
@@ -5489,6 +5536,26 @@
       driveAuto: "pc_v10_gdrive_autosync"
     };
 
+    const syncTopStrip = document.getElementById("syncTopStrip");
+    const syncTopStripText = document.getElementById("syncTopStripText");
+    let syncStripTimer = null;
+
+    function getPathLeafName(pathStr) {
+      const parts = normalizeSyncPath(pathStr).split("/").filter(Boolean);
+      return parts.length ? parts[parts.length - 1] : "Pocket Channel";
+    }
+
+    function showSyncStrip(msg, isError = false) {
+      if (!syncTopStrip) return;
+      syncTopStripText.textContent = msg;
+      syncTopStrip.classList.toggle("error", Boolean(isError));
+      syncTopStrip.classList.add("show");
+      clearTimeout(syncStripTimer);
+      syncStripTimer = setTimeout(() => {
+        syncTopStrip.classList.remove("show");
+      }, 3000);
+    }
+
     const offlineFolderPathInput = document.getElementById("offlineFolderPathInput");
     const selectOfflineFolderBtn = document.getElementById("selectOfflineFolderBtn");
     const offlineFolderFallbackInput = document.getElementById("offlineFolderFallbackInput");
@@ -5512,6 +5579,7 @@
     const currentOriginCode = document.getElementById("currentOriginCode");
 
     let linkedDirHandle = null;
+    let linkedFileHandle = null;
     let gdriveAccessToken = null;
     let gdriveTokenExpiry = 0;
     let gisScriptPromise = null;
@@ -5712,61 +5780,127 @@
       lastDriveSyncText.textContent = `Last Google Drive sync: ${formatSyncTimestamp(lastDrv)}`;
 
       const offPath = normalizeSyncPath(offlineFolderPathInput.value);
-      const displayTarget = linkedDirHandle ? linkedDirHandle.name : offPath;
+      const displayTarget = linkedDirHandle
+        ? linkedDirHandle.name
+        : (linkedFileHandle ? linkedFileHandle.name : offPath);
       offlineLinkedBadge.textContent = `Linked: ${displayTarget}`;
       offlineLinkedBadge.title = linkedDirHandle
         ? `Linked local folder: ${linkedDirHandle.name}/${BACKUP_FILENAME}`
-        : offPath;
+        : (linkedFileHandle ? `Linked local file: ${linkedFileHandle.name}` : offPath);
     }
 
     function scheduleAutoSyncOnChange() {
       if (isApplyingBackup) return;
       clearTimeout(autoSyncTimer);
       autoSyncTimer = setTimeout(async () => {
-        if (offlineAutoSyncCheck.checked && linkedDirHandle) {
-          try { await writeBackupToLinkedDir(false); } catch {}
+        if (offlineAutoSyncCheck.checked) {
+          try { await performLocalSync(false, true); } catch {}
         }
         if (gdriveAutoSyncCheck.checked && gdriveAccessToken && Date.now() < gdriveTokenExpiry - 60000) {
           try { await syncWithGoogleDrive(true); } catch {}
         }
-      }, 1500);
+      }, 1200);
     }
 
-    /* ---------- IndexedDB Persistence for File System Directory Handle ---------- */
+    /* ---------- IndexedDB + OPFS Local Sync Vault (No Download Bar) ---------- */
     function openSyncIdb() {
       return new Promise((resolve, reject) => {
         if (!window.indexedDB) return reject(new Error("IndexedDB unavailable"));
-        const req = indexedDB.open("PocketChannelSyncDB", 1);
+        const req = indexedDB.open("PocketChannelSyncDB", 2);
         req.onupgradeneeded = () => {
           const db = req.result;
           if (!db.objectStoreNames.contains("handles")) db.createObjectStore("handles");
+          if (!db.objectStoreNames.contains("offlineBackups")) db.createObjectStore("offlineBackups");
         };
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
       });
     }
 
-    async function saveDirHandleToIdb(handle) {
+    async function saveHandleToIdb(key, handle) {
       try {
         const db = await openSyncIdb();
         await new Promise((resolve, reject) => {
           const tx = db.transaction("handles", "readwrite");
-          tx.objectStore("handles").put(handle, "offlineDir");
+          tx.objectStore("handles").put(handle, key);
           tx.oncomplete = resolve;
           tx.onerror = () => reject(tx.error);
         });
       } catch {}
     }
 
-    async function loadDirHandleFromIdb() {
+    async function loadHandleFromIdb(key) {
       try {
         const db = await openSyncIdb();
         return await new Promise((resolve, reject) => {
           const tx = db.transaction("handles", "readonly");
-          const req = tx.objectStore("handles").get("offlineDir");
+          const req = tx.objectStore("handles").get(key);
           req.onsuccess = () => resolve(req.result || null);
           req.onerror = () => reject(req.error);
         });
+      } catch {
+        return null;
+      }
+    }
+
+    async function saveBackupToIdbVault(pathKey, jsonStr) {
+      const db = await openSyncIdb();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction("offlineBackups", "readwrite");
+        tx.objectStore("offlineBackups").put({
+          path: pathKey,
+          filename: BACKUP_FILENAME,
+          updatedAt: Date.now(),
+          content: jsonStr
+        }, pathKey);
+        tx.oncomplete = resolve;
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    async function loadBackupFromIdbVault(pathKey) {
+      try {
+        const db = await openSyncIdb();
+        return await new Promise((resolve, reject) => {
+          const tx = db.transaction("offlineBackups", "readonly");
+          const req = tx.objectStore("offlineBackups").get(pathKey);
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => reject(req.error);
+        });
+      } catch {
+        return null;
+      }
+    }
+
+    async function writeBackupToOpfs(pathStr, jsonStr) {
+      if (!navigator.storage || typeof navigator.storage.getDirectory !== "function") return false;
+      try {
+        let dir = await navigator.storage.getDirectory();
+        const parts = normalizeSyncPath(pathStr).split("/").filter(Boolean);
+        for (const seg of parts) {
+          dir = await dir.getDirectoryHandle(seg, { create: true });
+        }
+        const fh = await dir.getFileHandle(BACKUP_FILENAME, { create: true });
+        const writable = await fh.createWritable();
+        await writable.write(jsonStr);
+        await writable.close();
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async function readBackupFromOpfs(pathStr) {
+      if (!navigator.storage || typeof navigator.storage.getDirectory !== "function") return null;
+      try {
+        let dir = await navigator.storage.getDirectory();
+        const parts = normalizeSyncPath(pathStr).split("/").filter(Boolean);
+        for (const seg of parts) {
+          dir = await dir.getDirectoryHandle(seg, { create: false });
+        }
+        const fh = await dir.getFileHandle(BACKUP_FILENAME, { create: false });
+        const file = await fh.getFile();
+        return await file.text();
       } catch {
         return null;
       }
@@ -5784,19 +5918,19 @@
       setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
-    async function verifyDirPermission(handle, askUser = true) {
+    async function verifyFsPermission(handle, askUser = true) {
       if (!handle) return false;
       try {
         const opts = { mode: "readwrite" };
-        if ((await handle.queryPermission(opts)) === "granted") return true;
-        if (askUser && (await handle.requestPermission(opts)) === "granted") return true;
+        if (typeof handle.queryPermission === "function" && (await handle.queryPermission(opts)) === "granted") return true;
+        if (askUser && typeof handle.requestPermission === "function" && (await handle.requestPermission(opts)) === "granted") return true;
       } catch {}
       return false;
     }
 
     async function writeBackupToLinkedDir(askUser = true) {
       if (!linkedDirHandle) return false;
-      const ok = await verifyDirPermission(linkedDirHandle, askUser);
+      const ok = await verifyFsPermission(linkedDirHandle, askUser);
       if (!ok) return false;
 
       let existingData = null;
@@ -5811,14 +5945,114 @@
       }
 
       const encryptedObj = await encryptBackupPayload(buildBackupPayload());
+      const jsonStr = JSON.stringify(encryptedObj, null, 2);
       const fileHandle = await linkedDirHandle.getFileHandle(BACKUP_FILENAME, { create: true });
       const writable = await fileHandle.createWritable();
-      await writable.write(JSON.stringify(encryptedObj, null, 2));
+      await writable.write(jsonStr);
       await writable.close();
+
+      // Mirror in local vault too
+      const normPath = normalizeSyncPath(offlineFolderPathInput.value);
+      try { await saveBackupToIdbVault(normPath, jsonStr); } catch {}
+      await writeBackupToOpfs(normPath, jsonStr);
 
       localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
       updateSyncSummaryUI();
       return true;
+    }
+
+    async function writeBackupToLinkedFile(askUser = true) {
+      if (!linkedFileHandle) return false;
+      const ok = await verifyFsPermission(linkedFileHandle, askUser);
+      if (!ok) return false;
+
+      let existingData = null;
+      try {
+        const existingFile = await linkedFileHandle.getFile();
+        const text = await existingFile.text();
+        if (text && text.trim()) {
+          existingData = await decodeBackupObject(JSON.parse(text));
+        }
+      } catch {}
+
+      if (existingData && existingData.data) {
+        applyBackupPayload(existingData, true);
+      }
+
+      const encryptedObj = await encryptBackupPayload(buildBackupPayload());
+      const jsonStr = JSON.stringify(encryptedObj, null, 2);
+      const writable = await linkedFileHandle.createWritable();
+      await writable.write(jsonStr);
+      await writable.close();
+
+      const normPath = normalizeSyncPath(offlineFolderPathInput.value);
+      try { await saveBackupToIdbVault(normPath, jsonStr); } catch {}
+      await writeBackupToOpfs(normPath, jsonStr);
+
+      localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+      updateSyncSummaryUI();
+      return true;
+    }
+
+    async function performLocalSync(askUser = true, isAuto = false) {
+      const normPath = normalizeSyncPath(offlineFolderPathInput.value);
+      offlineFolderPathInput.value = normPath;
+      localStorage.setItem(SYNC_KEYS.offlinePath, normPath);
+
+      // Tier 1: Direct write to linked directory (no download bar)
+      if (linkedDirHandle) {
+        try {
+          const ok = await writeBackupToLinkedDir(askUser);
+          if (ok) {
+            showSyncStrip(`${isAuto ? "Auto-synced" : "Synced"} locally to ${linkedDirHandle.name}`);
+            return true;
+          }
+        } catch {}
+      }
+
+      // Tier 2: Direct write to linked file (no download bar)
+      if (linkedFileHandle) {
+        try {
+          const ok = await writeBackupToLinkedFile(askUser);
+          if (ok) {
+            showSyncStrip(`${isAuto ? "Auto-synced" : "Synced"} locally to ${linkedFileHandle.name}`);
+            return true;
+          }
+        } catch {}
+      }
+
+      // Tier 3: Silent local sync into OPFS + IndexedDB vault under configured path (zero browser download bar)
+      let existingText = await readBackupFromOpfs(normPath);
+      if (!existingText) {
+        const vaultRec = await loadBackupFromIdbVault(normPath);
+        if (vaultRec && vaultRec.content) existingText = vaultRec.content;
+      }
+      if (existingText) {
+        try {
+          const decoded = await decodeBackupObject(JSON.parse(existingText));
+          if (decoded && decoded.data) applyBackupPayload(decoded, true);
+        } catch {}
+      }
+
+      const encObj = await encryptBackupPayload(buildBackupPayload());
+      const jsonStr = JSON.stringify(encObj, null, 2);
+
+      const opfsOk = await writeBackupToOpfs(normPath, jsonStr);
+      let idbOk = false;
+      try {
+        await saveBackupToIdbVault(normPath, jsonStr);
+        idbOk = true;
+      } catch {}
+
+      if (opfsOk || idbOk) {
+        localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+        updateSyncSummaryUI();
+        showSyncStrip(`${isAuto ? "Auto-synced" : "Synced"} locally to ${getPathLeafName(normPath)}`);
+        return true;
+      }
+
+      showSyncStrip("Offline sync failed", true);
+      return false;
     }
 
     /* ---------- Offline Sync UI Handlers ---------- */
@@ -5839,11 +6073,13 @@
     });
 
     selectOfflineFolderBtn.addEventListener("click", async () => {
+      // 1. Desktop Chromium Directory Picker
       if (typeof window.showDirectoryPicker === "function") {
         try {
           const handle = await window.showDirectoryPicker({ mode: "readwrite" });
           linkedDirHandle = handle;
-          await saveDirHandleToIdb(handle);
+          linkedFileHandle = null;
+          await saveHandleToIdb("offlineDir", handle);
           const currentPath = normalizeSyncPath(offlineFolderPathInput.value);
           if (!currentPath.endsWith(handle.name)) {
             const newPath = handle.name === "Pocket Channel" ? DEFAULT_SYNC_PATH : handle.name;
@@ -5851,12 +6087,32 @@
             localStorage.setItem(SYNC_KEYS.offlinePath, newPath);
           }
           updateSyncSummaryUI();
-          showToast(`Offline folder linked: ${handle.name}`);
+          showSyncStrip(`Linked to ${handle.name}`);
           return;
         } catch (err) {
           if (err && err.name === "AbortError") return;
         }
       }
+
+      // 2. File Picker (supported on some mobile/tablet Chromium builds)
+      if (typeof window.showSaveFilePicker === "function") {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: BACKUP_FILENAME,
+            types: [{ description: "Pocket Channel Backup", accept: { "application/json": [".json"] } }]
+          });
+          linkedFileHandle = handle;
+          linkedDirHandle = null;
+          await saveHandleToIdb("offlineFile", handle);
+          updateSyncSummaryUI();
+          showSyncStrip(`Linked to ${handle.name}`);
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+
+      // 3. Mobile / Android WebView fallback directory input
       offlineFolderFallbackInput.value = "";
       offlineFolderFallbackInput.click();
     });
@@ -5872,7 +6128,7 @@
           offlineFolderPathInput.value = nextPath;
           localStorage.setItem(SYNC_KEYS.offlinePath, nextPath);
           updateSyncSummaryUI();
-          showToast(`Selected folder: ${folderName}`);
+          showSyncStrip(`Linked to ${getPathLeafName(nextPath)}`);
         }
       }
     });
@@ -5882,7 +6138,7 @@
       downloadTextFile(BACKUP_FILENAME, JSON.stringify(encObj, null, 2), "application/json");
       localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
       updateSyncSummaryUI();
-      showToast(`Exported ${BACKUP_FILENAME}`);
+      showSyncStrip(`Exported ${BACKUP_FILENAME}`);
     });
 
     importBackupJsonBtn.addEventListener("click", () => {
@@ -5900,33 +6156,25 @@
         applyBackupPayload(decoded, true);
         localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
         updateSyncSummaryUI();
-        showToast("Backup imported & merged");
+        showSyncStrip("Backup imported & synced");
       } catch {
-        showToast("Invalid backup JSON file");
+        showSyncStrip("Invalid backup JSON file", true);
       }
     });
 
     saveSyncLocallyBtn.addEventListener("click", async () => {
-      if (linkedDirHandle) {
-        try {
-          const ok = await writeBackupToLinkedDir(true);
-          if (ok) {
-            showToast(`Synced locally to ${linkedDirHandle.name}/${BACKUP_FILENAME}`);
-            return;
-          }
-        } catch {}
+      saveSyncLocallyBtn.disabled = true;
+      try {
+        await performLocalSync(true, false);
+      } finally {
+        saveSyncLocallyBtn.disabled = false;
       }
-      const encObj = await encryptBackupPayload(buildBackupPayload());
-      downloadTextFile(BACKUP_FILENAME, JSON.stringify(encObj, null, 2), "application/json");
-      localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
-      updateSyncSummaryUI();
-      showToast(`Saved locally (${normalizeSyncPath(offlineFolderPathInput.value)})`);
     });
 
     offlineAutoSyncCheck.addEventListener("change", () => {
       const on = offlineAutoSyncCheck.checked;
       localStorage.setItem(SYNC_KEYS.offlineAuto, String(on));
-      showToast(on ? "Auto-sync local data enabled" : "Auto-sync local data disabled");
+      showSyncStrip(on ? "Auto-sync local data enabled" : "Auto-sync local data disabled");
     });
 
     /* ---------- Google Drive Online Sync ---------- */
@@ -5952,7 +6200,7 @@
     gdriveAutoSyncCheck.addEventListener("change", () => {
       const on = gdriveAutoSyncCheck.checked;
       localStorage.setItem(SYNC_KEYS.driveAuto, String(on));
-      showToast(on ? "Auto-sync with Google Drive enabled" : "Auto-sync with Google Drive disabled");
+      showSyncStrip(on ? "Auto-sync with Google Drive enabled" : "Auto-sync with Google Drive disabled");
     });
 
     function setGdrivePill(cls, text) {
@@ -5983,7 +6231,7 @@
     async function requestGdriveToken(promptMode = "consent") {
       const clientId = gdriveClientIdInput.value.trim();
       if (!clientId) {
-        showToast("Enter your Google OAuth Client ID first");
+        showSyncStrip("Enter your Google OAuth Client ID first", true);
         gdriveClientIdInput.focus();
         throw new Error("Missing Client ID");
       }
@@ -6126,11 +6374,11 @@
         localStorage.setItem(SYNC_KEYS.driveLast, String(Date.now()));
         setGdrivePill("connected", "Connected");
         updateSyncSummaryUI();
-        if (!silent) showToast(`Synced to Drive: ${folderPath}`);
+        showSyncStrip(`${silent ? "Auto-synced" : "Synced"} to Google Drive (${getPathLeafName(folderPath)})`);
       } catch (err) {
         setGdrivePill("", gdriveAccessToken ? "Connected" : "Not Connected");
         if (!silent && err && err.message !== "Missing Client ID") {
-          showToast(err.message || "Google Drive sync failed");
+          showSyncStrip(err.message || "Google Drive sync failed", true);
         }
       } finally {
         gdriveSyncBtn.disabled = false;
@@ -6141,11 +6389,11 @@
       try {
         setGdrivePill("syncing", "Connecting...");
         await requestGdriveToken("consent");
-        showToast("Google Drive connected");
+        showSyncStrip("Google Drive connected");
       } catch (err) {
         setGdrivePill("", "Not Connected");
         if (err && err.message !== "Missing Client ID") {
-          showToast(err.message || "Connection cancelled");
+          showSyncStrip(err.message || "Connection cancelled", true);
         }
       }
     });
@@ -6173,9 +6421,13 @@
       showToast("Origin copied: " + origin);
     });
 
-    // Restore persisted directory handle on load
-    loadDirHandleFromIdb().then(h => {
-      if (h) linkedDirHandle = h;
+    // Restore persisted directory/file handles on load
+    Promise.all([
+      loadHandleFromIdb("offlineDir"),
+      loadHandleFromIdb("offlineFile")
+    ]).then(([dirH, fileH]) => {
+      if (dirH) linkedDirHandle = dirH;
+      if (fileH) linkedFileHandle = fileH;
       updateSyncSummaryUI();
     });
     updateSyncSummaryUI();
