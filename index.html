@@ -2038,10 +2038,427 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* ==========================================================
+       OFFLINE & GOOGLE DRIVE SYNC CARDS (GLASSMORPHIC)
+       ========================================================== */
+    .sync-card {
+      background: var(--glass-slab);
+      backdrop-filter: blur(22px) saturate(155%);
+      -webkit-backdrop-filter: blur(22px) saturate(155%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      box-shadow: var(--glass-shadow), var(--glass-highlight);
+    }
+
+    .sync-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .sync-head-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .sync-ico-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: rgba(99, 102, 241, 0.16);
+      border: 1px solid rgba(129, 140, 248, 0.34);
+      color: #818cf8;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .sync-title-wrap {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .sync-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sync-title-row h3 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      margin: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sync-sub {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .sync-linked-tag {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      max-width: 44%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: right;
+      padding-top: 2px;
+    }
+
+    .sync-stats {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      padding: 2px 2px 0;
+    }
+
+    .sync-btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sync-btn-full {
+      width: 100%;
+      height: var(--slab-h);
+      border-radius: var(--slab-radius);
+      border: 1px solid var(--border);
+      background: var(--glass-inner);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--glass-highlight);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.16s, border-color 0.16s, transform 0.12s;
+    }
+
+    .sync-btn-full:hover {
+      background: var(--glass-slab-hover);
+      border-color: var(--border-strong);
+    }
+
+    .sync-btn-full:active {
+      transform: scale(0.985);
+    }
+
+    .sync-btn-full.indigo {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.90), rgba(79, 70, 229, 0.90));
+      border-color: rgba(129, 140, 248, 0.62);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.28), var(--glass-highlight);
+    }
+
+    .sync-btn-full.indigo:hover {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 1), rgba(79, 70, 229, 1));
+    }
+
+    .sync-btn-full:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .sync-field-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .sync-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .sync-input-row .slab-input {
+      flex: 1;
+      min-width: 0;
+      background: var(--glass-inner);
+    }
+
+    .sync-side-btn {
+      height: var(--slab-h);
+      padding: 0 13px;
+      border-radius: var(--slab-radius);
+      border: 1px solid var(--border);
+      background: var(--glass-slab);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--glass-highlight);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.80rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.16s, border-color 0.16s, transform 0.12s;
+    }
+
+    .sync-side-btn:hover {
+      background: var(--glass-slab-hover);
+      border-color: var(--border-strong);
+    }
+
+    .sync-side-btn:active {
+      transform: scale(0.97);
+    }
+
+    .sync-guide-btn {
+      height: 30px;
+      padding: 0 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--glass-slab);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .sync-guide-btn:hover {
+      background: var(--glass-slab-hover);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .sync-check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 0;
+    }
+
+    .sync-check-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: #6366f1;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .sync-check-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .sync-check-title {
+      font-size: 0.80rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .sync-check-sub {
+      font-size: 0.70rem;
+      color: var(--text-secondary);
+    }
+
+    .sync-split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .sync-pill-btn {
+      height: 38px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 0.79rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s, border-color 0.15s, transform 0.12s;
+    }
+
+    .sync-pill-btn:active {
+      transform: scale(0.98);
+    }
+
+    .sync-pill-btn.teal {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.36);
+      color: var(--brand-accent-text);
+    }
+
+    .sync-pill-btn.teal:hover {
+      background: rgba(16, 185, 129, 0.24);
+    }
+
+    .sync-pill-btn.danger {
+      background: rgba(239, 68, 68, 0.13);
+      border-color: rgba(239, 68, 68, 0.36);
+      color: #f87171;
+    }
+
+    [data-theme="light"] .sync-pill-btn.danger {
+      color: #dc2626;
+    }
+
+    .sync-pill-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.22);
+    }
+
+    .sync-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.16);
+      border: 1px solid rgba(129, 140, 248, 0.36);
+      color: #818cf8;
+    }
+
+    .sync-status-pill.connected {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.40);
+      color: var(--brand-accent-text);
+    }
+
+    .sync-status-pill.syncing {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.40);
+      color: var(--accent);
+    }
+
+    .sync-status-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Glassmorphic Setup Guide Modal */
+    .glass-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 260;
+      background: rgba(4, 7, 15, 0.68);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .glass-modal-backdrop.open {
+      display: flex;
+    }
+
+    .glass-modal {
+      width: 100%;
+      max-width: 440px;
+      max-height: 84dvh;
+      overflow-y: auto;
+      background: var(--glass-dropdown);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.48), var(--glass-highlight);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: dropIn 0.16s ease-out;
+    }
+
+    .glass-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .glass-modal-head h3 {
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .glass-modal-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 18px;
+      font-size: 0.80rem;
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+
+    .glass-modal-steps strong {
+      color: var(--text-primary);
+    }
+
+    .origin-copy-box {
+      background: var(--glass-inner);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 9px 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.76rem;
+    }
+
+    .origin-copy-box code {
+      color: var(--brand-accent-text);
+      word-break: break-all;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
   </style>
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
-  <link rel="apple-touch-icon" href="./icon-192.png" />
 </head>
 <body>
 
@@ -2278,6 +2695,88 @@
             </form>
           </div>
 
+                    <!-- OFFLINE BACKUP & SYNC -->
+          <div class="sync-card" id="offlineSyncCard">
+            <div class="sync-head">
+              <div class="sync-head-left">
+                <div class="sync-ico-box" aria-hidden="true">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                  </svg>
+                </div>
+                <div class="sync-title-wrap">
+                  <div class="sync-title-row">
+                    <h3>Offline</h3>
+                  </div>
+                  <div id="lastOfflineBackupText" class="sync-sub">Last offline backup: Never</div>
+                </div>
+              </div>
+              <div id="offlineLinkedBadge" class="sync-linked-tag" title="Selected offline path">Path: Apps/Pocket Apps/Backups/Pocket Channel</div>
+            </div>
+
+            <div id="syncStatsLine" class="sync-stats">0 favorite radio • 0 favorite TV • 0 custom channels</div>
+
+            <div class="sync-btn-stack">
+              <button type="button" id="exportBackupJsonBtn" class="sync-btn-full indigo">⬇ Export Backup JSON</button>
+              <button type="button" id="importBackupJsonBtn" class="sync-btn-full">⬆ Import Backup JSON</button>
+              <button type="button" id="saveSyncLocallyBtn" class="sync-btn-full">🔄 Save &amp; Sync Locally</button>
+            </div>
+
+            <input id="importBackupFileInput" type="file" accept=".json,application/json" style="display:none;" />
+            <input id="offlineFolderFallbackInput" type="file" webkitdirectory directory style="display:none;" />
+
+            <div>
+              <label for="offlineFolderPathInput" class="sync-field-label">Offline Folder Path</label>
+              <div class="sync-input-row">
+                <input id="offlineFolderPathInput" class="slab-input" type="text" value="Apps/Pocket Apps/Backups/Pocket Channel" placeholder="Apps/Pocket Apps/Backups/Pocket Channel" autocomplete="off" />
+                <button type="button" id="selectOfflineFolderBtn" class="sync-side-btn" title="Select Offline Folder">📁 Folder</button>
+              </div>
+            </div>
+
+            <label class="sync-check-row">
+              <input id="offlineAutoSyncCheck" type="checkbox" />
+              <span class="sync-check-text">
+                <span class="sync-check-title">Auto-sync local data to linked file every hour</span>
+                <span id="nextHourlySyncText" class="sync-check-sub">Hourly auto-sync off</span>
+              </span>
+            </label>
+
+            <div class="sync-split-row">
+              <button type="button" id="exportM3uBtn" class="sync-pill-btn teal">Export M3U</button>
+              <button type="button" id="clearAllDataBtn" class="sync-pill-btn danger">Clear All Data</button>
+            </div>
+          </div>
+
+          <!-- GOOGLE DRIVE ONLINE SYNC -->
+          <div class="sync-card" id="googleDriveSyncCard">
+            <div class="sync-head">
+              <div class="sync-head-left">
+                <div class="sync-title-wrap">
+                  <div class="sync-title-row">
+                    <h3>☁ Google Drive</h3>
+                    <span id="gdriveStatusPill" class="sync-status-pill"><span class="dot"></span> Ready</span>
+                  </div>
+                  <div id="lastDriveSyncText" class="sync-sub">Last Google Drive sync: Never</div>
+                </div>
+              </div>
+              <button type="button" id="gdriveGuideBtn" class="sync-guide-btn">? Setup Guide</button>
+            </div>
+
+            <button type="button" id="gdriveSyncBtn" class="sync-btn-full indigo">☁ One-Click Sync with Google Drive</button>
+
+            <div class="sync-input-row">
+              <input id="gdriveClientIdInput" class="slab-input" type="text" placeholder="Google OAuth Client ID (.apps.googleusercontent.com)" autocomplete="off" />
+              <button type="button" id="gdriveConnectBtn" class="sync-side-btn">🔗 Connect</button>
+            </div>
+
+            <div>
+              <label for="gdriveFolderPathInput" class="sync-field-label">Drive Folder Path</label>
+              <input id="gdriveFolderPathInput" class="slab-input" type="text" style="width:100%;" value="Apps/Pocket Apps/Backups/Pocket Channel" placeholder="Apps/Pocket Apps/Backups/Pocket Channel" autocomplete="off" />
+            </div>
+          </div>
+
           <!-- ABOUT SECTION -->
           <div class="about-card">
             <div class="about-top">
@@ -2316,6 +2815,28 @@
       <span>Settings</span>
     </button>
   </nav>
+
+    <!-- Google Drive Setup Guide Modal -->
+  <div id="gdriveGuideModal" class="glass-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="gdriveGuideTitle">
+    <div class="glass-modal">
+      <div class="glass-modal-head">
+        <h3 id="gdriveGuideTitle">☁ Google Drive Sync Setup</h3>
+        <button type="button" id="closeGdriveGuideBtn" class="slab-btn icon-only" title="Close">✕</button>
+      </div>
+      <ol class="glass-modal-steps">
+        <li>Open <strong>Google Cloud Console</strong> and create or select a project.</li>
+        <li>Enable the <strong>Google Drive API</strong> under APIs &amp; Services.</li>
+        <li>Configure the <strong>OAuth Consent Screen</strong> (External) and add your Gmail under Test Users.</li>
+        <li>Go to <strong>Credentials → Create Credentials → OAuth Client ID → Web application</strong>.</li>
+        <li>Add your app origin below under <strong>Authorized JavaScript origins</strong>, copy the Client ID, paste it here, and tap <strong>Connect</strong>.</li>
+      </ol>
+      <div class="origin-copy-box">
+        <code id="currentOriginCode"></code>
+        <button type="button" id="copyOriginBtn" class="copy-email-btn" style="height:30px;padding:0 12px;font-size:0.74rem;">Copy</button>
+      </div>
+      <button type="button" id="closeGdriveGuideBtn2" class="slab-btn primary" style="width:100%;">Done</button>
+    </div>
+  </div>
 
   <!-- Shared Floating Glass Dropdown Portal -->
   <div id="glassDropdownPortal" class="glass-dropdown-menu" role="listbox"></div>
@@ -3218,6 +3739,7 @@
           if (radioFavs.some(f => f.id === st.id)) radioFavs = radioFavs.filter(f => f.id !== st.id);
           else radioFavs = [st, ...radioFavs];
           localStorage.setItem("pc_v10_radio_favs", JSON.stringify(radioFavs));
+          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
           syncRadioFilters();
           renderRadio(radioProbing);
         });
@@ -3744,6 +4266,7 @@
           if (tvFavs.some(f => f.id === ch.id)) tvFavs = tvFavs.filter(f => f.id !== ch.id);
           else tvFavs = [ch, ...tvFavs];
           localStorage.setItem("pc_v10_tv_favs", JSON.stringify(tvFavs));
+          if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
           syncTvFilters();
           renderTv(tvProbing);
         });
@@ -4965,6 +5488,7 @@
         };
         customRadio = [st, ...customRadio];
         localStorage.setItem("pc_v10_custom_radio", JSON.stringify(customRadio));
+        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
         syncRadioFilters();
         switchView("radio");
         playRadio(st);
@@ -4980,6 +5504,7 @@
         };
         customTv = [ch, ...customTv];
         localStorage.setItem("pc_v10_custom_tv", JSON.stringify(customTv));
+        if (typeof updateSyncSummaryUI === "function") updateSyncSummaryUI();
         if (tvLoaded) syncTvFilters();
         switchView("livetv");
         playTv(ch);
@@ -4990,19 +5515,718 @@
       showToast(`Added & playing ${name}`);
     });
 
+
+    /* ==========================================================
+       OFFLINE & GOOGLE DRIVE SYNC ENGINE
+       ========================================================== */
+    const DEFAULT_SYNC_PATH = "Apps/Pocket Apps/Backups/Pocket Channel";
+    const BACKUP_FILENAME = "pocket-channel-backup.json";
+
+    const SYNC_KEYS = {
+      offlinePath: "pc_v10_offline_path",
+      offlineLast: "pc_v10_offline_last",
+      offlineAuto: "pc_v10_offline_autosync",
+      offlineNext: "pc_v10_offline_next_sync",
+      drivePath: "pc_v10_gdrive_path",
+      driveClientId: "pc_v10_gdrive_client_id",
+      driveLast: "pc_v10_gdrive_last"
+    };
+
+    const offlineFolderPathInput = document.getElementById("offlineFolderPathInput");
+    const selectOfflineFolderBtn = document.getElementById("selectOfflineFolderBtn");
+    const offlineFolderFallbackInput = document.getElementById("offlineFolderFallbackInput");
+    const offlineLinkedBadge = document.getElementById("offlineLinkedBadge");
+    const lastOfflineBackupText = document.getElementById("lastOfflineBackupText");
+    const syncStatsLine = document.getElementById("syncStatsLine");
+    const exportBackupJsonBtn = document.getElementById("exportBackupJsonBtn");
+    const importBackupJsonBtn = document.getElementById("importBackupJsonBtn");
+    const importBackupFileInput = document.getElementById("importBackupFileInput");
+    const saveSyncLocallyBtn = document.getElementById("saveSyncLocallyBtn");
+    const offlineAutoSyncCheck = document.getElementById("offlineAutoSyncCheck");
+    const nextHourlySyncText = document.getElementById("nextHourlySyncText");
+    const exportM3uBtn = document.getElementById("exportM3uBtn");
+    const clearAllDataBtn = document.getElementById("clearAllDataBtn");
+
+    const gdriveStatusPill = document.getElementById("gdriveStatusPill");
+    const lastDriveSyncText = document.getElementById("lastDriveSyncText");
+    const gdriveSyncBtn = document.getElementById("gdriveSyncBtn");
+    const gdriveClientIdInput = document.getElementById("gdriveClientIdInput");
+    const gdriveConnectBtn = document.getElementById("gdriveConnectBtn");
+    const gdriveFolderPathInput = document.getElementById("gdriveFolderPathInput");
+    const gdriveGuideBtn = document.getElementById("gdriveGuideBtn");
+    const gdriveGuideModal = document.getElementById("gdriveGuideModal");
+    const currentOriginCode = document.getElementById("currentOriginCode");
+
+    let linkedDirHandle = null;
+    let gdriveAccessToken = null;
+    let gdriveTokenExpiry = 0;
+    let gisScriptPromise = null;
+
+    function normalizeSyncPath(raw) {
+      const cleaned = String(raw || "")
+        .replace(/\\/g, "/")
+        .split("/")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .join("/");
+      return cleaned || DEFAULT_SYNC_PATH;
+    }
+
+    function formatSyncTimestamp(ts) {
+      if (!ts) return "Never";
+      try {
+        const d = new Date(ts);
+        if (isNaN(d.getTime())) return "Never";
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const yyyy = d.getFullYear();
+        const hh = String(d.getHours()).padStart(2, "0");
+        const min = String(d.getMinutes()).padStart(2, "0");
+        const ss = String(d.getSeconds()).padStart(2, "0");
+        return `${dd}/${mm}/${yyyy}, ${hh}:${min}:${ss}`;
+      } catch {
+        return "Never";
+      }
+    }
+
+    function formatHHMM(ts) {
+      const d = new Date(ts);
+      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+    }
+
+    function buildBackupPayload() {
+      return {
+        app: "Pocket Channel",
+        version: "1.0",
+        updatedAt: Date.now(),
+        data: {
+          radioFavs,
+          tvFavs,
+          customRadio,
+          customTv,
+          settings: {
+            themeMode,
+            bgPlayEnabled,
+            tvAspectMode,
+            tvPlaybackSpeed,
+            tvQualityPreset
+          }
+        }
+      };
+    }
+
+    function mergeChannelLists(localArr, remoteArr) {
+      const map = new Map();
+      const addAll = arr => {
+        if (!Array.isArray(arr)) return;
+        for (const item of arr) {
+          if (!item || !item.url) continue;
+          const key = (item.url || item.id).toLowerCase();
+          if (!map.has(key)) map.set(key, item);
+        }
+      };
+      addAll(localArr);
+      addAll(remoteArr);
+      return Array.from(map.values());
+    }
+
+    function applyBackupPayload(payload, merge = false) {
+      if (!payload || !payload.data || typeof payload.data !== "object") {
+        throw new Error("Invalid Pocket Channel backup file");
+      }
+      const d = payload.data;
+      if (merge) {
+        radioFavs = mergeChannelLists(radioFavs, d.radioFavs);
+        tvFavs = mergeChannelLists(tvFavs, d.tvFavs);
+        customRadio = mergeChannelLists(customRadio, d.customRadio);
+        customTv = mergeChannelLists(customTv, d.customTv);
+      } else {
+        radioFavs = Array.isArray(d.radioFavs) ? d.radioFavs : [];
+        tvFavs = Array.isArray(d.tvFavs) ? d.tvFavs : [];
+        customRadio = Array.isArray(d.customRadio) ? d.customRadio : [];
+        customTv = Array.isArray(d.customTv) ? d.customTv : [];
+      }
+
+      localStorage.setItem("pc_v10_radio_favs", JSON.stringify(radioFavs));
+      localStorage.setItem("pc_v10_tv_favs", JSON.stringify(tvFavs));
+      localStorage.setItem("pc_v10_custom_radio", JSON.stringify(customRadio));
+      localStorage.setItem("pc_v10_custom_tv", JSON.stringify(customTv));
+
+      if (d.settings && typeof d.settings === "object") {
+        if (d.settings.themeMode) {
+          applyTheme(d.settings.themeMode);
+          themeSelect.value = d.settings.themeMode;
+          syncGlassSelectLabel(themeSelect);
+        }
+        if (typeof d.settings.bgPlayEnabled === "boolean") {
+          bgPlayEnabled = d.settings.bgPlayEnabled;
+          bgPlayToggle.checked = bgPlayEnabled;
+          localStorage.setItem("pc_v10_bgplay", String(bgPlayEnabled));
+        }
+        if (d.settings.tvAspectMode) applyTvAspectMode(d.settings.tvAspectMode, false);
+        if (d.settings.tvPlaybackSpeed) {
+          tvPlaybackSpeed = parseFloat(d.settings.tvPlaybackSpeed) || 1;
+          localStorage.setItem("pc_v16_tv_speed", String(tvPlaybackSpeed));
+          tvVideo.playbackRate = tvPlaybackSpeed;
+          syncTvSpeedBtnUI();
+        }
+        if (d.settings.tvQualityPreset) {
+          applyTvQualityPreset(d.settings.tvQualityPreset, false);
+          syncTvQualityBtnUI();
+        }
+      }
+
+      syncRadioFilters();
+      renderRadio(radioProbing);
+      if (tvLoaded) {
+        syncTvFilters();
+        renderTv(tvProbing);
+      }
+      updateSyncSummaryUI();
+    }
+
+    function updateSyncSummaryUI() {
+      const customTotal = customRadio.length + customTv.length;
+      syncStatsLine.textContent = `${radioFavs.length} favorite radio • ${tvFavs.length} favorite TV • ${customTotal} custom channels`;
+
+      const lastOff = parseInt(localStorage.getItem(SYNC_KEYS.offlineLast) || "0", 10);
+      lastOfflineBackupText.textContent = `Last offline backup: ${formatSyncTimestamp(lastOff)}`;
+
+      const lastDrv = parseInt(localStorage.getItem(SYNC_KEYS.driveLast) || "0", 10);
+      lastDriveSyncText.textContent = `Last Google Drive sync: ${formatSyncTimestamp(lastDrv)}`;
+
+      const offPath = normalizeSyncPath(offlineFolderPathInput.value);
+      offlineLinkedBadge.textContent = linkedDirHandle
+        ? `Linked: ${linkedDirHandle.name}/${BACKUP_FILENAME}`
+        : `Path: ${offPath}`;
+      offlineLinkedBadge.title = linkedDirHandle
+        ? `Linked local folder: ${linkedDirHandle.name}`
+        : offPath;
+
+      const autoOn = offlineAutoSyncCheck.checked;
+      if (autoOn) {
+        let nextTs = parseInt(localStorage.getItem(SYNC_KEYS.offlineNext) || "0", 10);
+        if (!nextTs || nextTs < Date.now()) {
+          nextTs = Date.now() + 60 * 60 * 1000;
+          localStorage.setItem(SYNC_KEYS.offlineNext, String(nextTs));
+        }
+        nextHourlySyncText.textContent = `Next hourly sync: ${formatHHMM(nextTs)}`;
+      } else {
+        nextHourlySyncText.textContent = "Hourly auto-sync off";
+      }
+    }
+
+    /* ---------- IndexedDB Persistence for File System Directory Handle ---------- */
+    function openSyncIdb() {
+      return new Promise((resolve, reject) => {
+        if (!window.indexedDB) return reject(new Error("IndexedDB unavailable"));
+        const req = indexedDB.open("PocketChannelSyncDB", 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains("handles")) db.createObjectStore("handles");
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function saveDirHandleToIdb(handle) {
+      try {
+        const db = await openSyncIdb();
+        await new Promise((resolve, reject) => {
+          const tx = db.transaction("handles", "readwrite");
+          tx.objectStore("handles").put(handle, "offlineDir");
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(tx.error);
+        });
+      } catch {}
+    }
+
+    async function loadDirHandleFromIdb() {
+      try {
+        const db = await openSyncIdb();
+        return await new Promise((resolve, reject) => {
+          const tx = db.transaction("handles", "readonly");
+          const req = tx.objectStore("handles").get("offlineDir");
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => reject(req.error);
+        });
+      } catch {
+        return null;
+      }
+    }
+
+    function downloadTextFile(filename, content, mime = "application/json") {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    async function verifyDirPermission(handle, askUser = true) {
+      if (!handle) return false;
+      try {
+        const opts = { mode: "readwrite" };
+        if ((await handle.queryPermission(opts)) === "granted") return true;
+        if (askUser && (await handle.requestPermission(opts)) === "granted") return true;
+      } catch {}
+      return false;
+    }
+
+    async function writeBackupToLinkedDir(askUser = true) {
+      if (!linkedDirHandle) return false;
+      const ok = await verifyDirPermission(linkedDirHandle, askUser);
+      if (!ok) return false;
+
+      // Read existing file if present and merge so nothing is lost
+      let existingData = null;
+      try {
+        const existingHandle = await linkedDirHandle.getFileHandle(BACKUP_FILENAME, { create: false });
+        const existingFile = await existingHandle.getFile();
+        existingData = JSON.parse(await existingFile.text());
+      } catch {}
+
+      if (existingData && existingData.data) {
+        applyBackupPayload(existingData, true);
+      }
+
+      const fileHandle = await linkedDirHandle.getFileHandle(BACKUP_FILENAME, { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(buildBackupPayload(), null, 2));
+      await writable.close();
+
+      localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+      if (offlineAutoSyncCheck.checked) {
+        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
+      }
+      updateSyncSummaryUI();
+      return true;
+    }
+
+    /* ---------- Offline Sync UI Handlers ---------- */
+    offlineFolderPathInput.value = normalizeSyncPath(localStorage.getItem(SYNC_KEYS.offlinePath) || DEFAULT_SYNC_PATH);
+    offlineAutoSyncCheck.checked = localStorage.getItem(SYNC_KEYS.offlineAuto) === "true";
+
+    offlineFolderPathInput.addEventListener("input", () => {
+      const val = offlineFolderPathInput.value.trim();
+      localStorage.setItem(SYNC_KEYS.offlinePath, val || DEFAULT_SYNC_PATH);
+      updateSyncSummaryUI();
+    });
+
+    offlineFolderPathInput.addEventListener("blur", () => {
+      const norm = normalizeSyncPath(offlineFolderPathInput.value);
+      offlineFolderPathInput.value = norm;
+      localStorage.setItem(SYNC_KEYS.offlinePath, norm);
+      updateSyncSummaryUI();
+    });
+
+    selectOfflineFolderBtn.addEventListener("click", async () => {
+      if (typeof window.showDirectoryPicker === "function") {
+        try {
+          const handle = await window.showDirectoryPicker({ mode: "readwrite" });
+          linkedDirHandle = handle;
+          await saveDirHandleToIdb(handle);
+          const currentPath = normalizeSyncPath(offlineFolderPathInput.value);
+          if (!currentPath.endsWith(handle.name)) {
+            const newPath = handle.name === "Pocket Channel" ? DEFAULT_SYNC_PATH : handle.name;
+            offlineFolderPathInput.value = newPath;
+            localStorage.setItem(SYNC_KEYS.offlinePath, newPath);
+          }
+          updateSyncSummaryUI();
+          showToast(`Offline folder linked: ${handle.name}`);
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+      // Fallback for Android Chrome / WebView APK without showDirectoryPicker
+      offlineFolderFallbackInput.value = "";
+      offlineFolderFallbackInput.click();
+    });
+
+    offlineFolderFallbackInput.addEventListener("change", e => {
+      const files = e.target.files;
+      if (files && files.length) {
+        const rel = files[0].webkitRelativePath || "";
+        const folderName = rel.split("/")[0];
+        if (folderName) {
+          const base = normalizeSyncPath(offlineFolderPathInput.value);
+          const nextPath = base.includes(folderName) ? base : folderName;
+          offlineFolderPathInput.value = nextPath;
+          localStorage.setItem(SYNC_KEYS.offlinePath, nextPath);
+          updateSyncSummaryUI();
+          showToast(`Selected folder: ${folderName}`);
+        }
+      }
+    });
+
+    exportBackupJsonBtn.addEventListener("click", () => {
+      const json = JSON.stringify(buildBackupPayload(), null, 2);
+      downloadTextFile(BACKUP_FILENAME, json, "application/json");
+      localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+      updateSyncSummaryUI();
+      showToast(`Exported ${BACKUP_FILENAME}`);
+    });
+
+    importBackupJsonBtn.addEventListener("click", () => {
+      importBackupFileInput.value = "";
+      importBackupFileInput.click();
+    });
+
+    importBackupFileInput.addEventListener("change", async e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        applyBackupPayload(parsed, true);
+        localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+        updateSyncSummaryUI();
+        showToast("Backup imported & merged");
+      } catch {
+        showToast("Invalid backup JSON file");
+      }
+    });
+
+    saveSyncLocallyBtn.addEventListener("click", async () => {
+      if (linkedDirHandle) {
+        try {
+          const ok = await writeBackupToLinkedDir(true);
+          if (ok) {
+            showToast(`Synced locally to ${linkedDirHandle.name}/${BACKUP_FILENAME}`);
+            return;
+          }
+        } catch {}
+      }
+      const json = JSON.stringify(buildBackupPayload(), null, 2);
+      downloadTextFile(BACKUP_FILENAME, json, "application/json");
+      localStorage.setItem(SYNC_KEYS.offlineLast, String(Date.now()));
+      if (offlineAutoSyncCheck.checked) {
+        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
+      }
+      updateSyncSummaryUI();
+      showToast(`Saved locally (${normalizeSyncPath(offlineFolderPathInput.value)})`);
+    });
+
+    offlineAutoSyncCheck.addEventListener("change", () => {
+      const on = offlineAutoSyncCheck.checked;
+      localStorage.setItem(SYNC_KEYS.offlineAuto, String(on));
+      if (on) {
+        localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
+        showToast("Hourly local auto-sync enabled");
+      } else {
+        showToast("Hourly local auto-sync disabled");
+      }
+      updateSyncSummaryUI();
+    });
+
+    setInterval(async () => {
+      if (!offlineAutoSyncCheck.checked) return;
+      const nextTs = parseInt(localStorage.getItem(SYNC_KEYS.offlineNext) || "0", 10);
+      if (nextTs && Date.now() >= nextTs) {
+        if (linkedDirHandle) {
+          await writeBackupToLinkedDir(false);
+        } else {
+          localStorage.setItem(SYNC_KEYS.offlineNext, String(Date.now() + 60 * 60 * 1000));
+          updateSyncSummaryUI();
+        }
+      }
+    }, 60 * 1000);
+
+    exportM3uBtn.addEventListener("click", () => {
+      const lines = ["#EXTM3U"];
+      const allExport = [
+        ...radioFavs.map(x => ({ ...x, group: "Favorite Radio" })),
+        ...tvFavs.map(x => ({ ...x, group: "Favorite Live TV" })),
+        ...customRadio.map(x => ({ ...x, group: "Custom Radio" })),
+        ...customTv.map(x => ({ ...x, group: "Custom Live TV" }))
+      ];
+      if (!allExport.length) {
+        showToast("No favorites or custom channels to export");
+        return;
+      }
+      for (const ch of allExport) {
+        lines.push(`#EXTINF:-1 group-title="${ch.group}",${ch.name}`);
+        lines.push(ch.url);
+      }
+      downloadTextFile("pocket-channel-favorites.m3u", lines.join("\n"), "audio/x-mpegurl");
+      showToast(`Exported ${allExport.length} channels to M3U`);
+    });
+
+    clearAllDataBtn.addEventListener("click", () => {
+      if (!confirm("Clear all favorite Radio, favorite Live TV, and custom channels?")) return;
+      radioFavs = [];
+      tvFavs = [];
+      customRadio = [];
+      customTv = [];
+      localStorage.setItem("pc_v10_radio_favs", "[]");
+      localStorage.setItem("pc_v10_tv_favs", "[]");
+      localStorage.setItem("pc_v10_custom_radio", "[]");
+      localStorage.setItem("pc_v10_custom_tv", "[]");
+      syncRadioFilters();
+      renderRadio(radioProbing);
+      if (tvLoaded) {
+        syncTvFilters();
+        renderTv(tvProbing);
+      }
+      updateSyncSummaryUI();
+      showToast("All saved favorites & custom channels cleared");
+    });
+
+    /* ---------- Google Drive Online Sync ---------- */
+    gdriveClientIdInput.value = localStorage.getItem(SYNC_KEYS.driveClientId) || "";
+    gdriveFolderPathInput.value = normalizeSyncPath(localStorage.getItem(SYNC_KEYS.drivePath) || DEFAULT_SYNC_PATH);
+
+    gdriveClientIdInput.addEventListener("input", () => {
+      localStorage.setItem(SYNC_KEYS.driveClientId, gdriveClientIdInput.value.trim());
+    });
+
+    gdriveFolderPathInput.addEventListener("input", () => {
+      const val = gdriveFolderPathInput.value.trim();
+      localStorage.setItem(SYNC_KEYS.drivePath, val || DEFAULT_SYNC_PATH);
+    });
+
+    gdriveFolderPathInput.addEventListener("blur", () => {
+      const norm = normalizeSyncPath(gdriveFolderPathInput.value);
+      gdriveFolderPathInput.value = norm;
+      localStorage.setItem(SYNC_KEYS.drivePath, norm);
+    });
+
+    function setGdrivePill(cls, text) {
+      gdriveStatusPill.className = "sync-status-pill" + (cls ? " " + cls : "");
+      gdriveStatusPill.innerHTML = `<span class="dot"></span> ${text}`;
+    }
+
+    function loadGisScript() {
+      if (window.google && window.google.accounts && window.google.accounts.oauth2) {
+        return Promise.resolve();
+      }
+      if (gisScriptPromise) return gisScriptPromise;
+      gisScriptPromise = new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = "https://accounts.google.com/gsi/client";
+        s.async = true;
+        s.defer = true;
+        s.onload = () => resolve();
+        s.onerror = () => {
+          gisScriptPromise = null;
+          reject(new Error("Could not load Google Sign-In script"));
+        };
+        document.head.appendChild(s);
+      });
+      return gisScriptPromise;
+    }
+
+    async function requestGdriveToken(promptMode = "consent") {
+      const clientId = gdriveClientIdInput.value.trim();
+      if (!clientId) {
+        showToast("Enter your Google OAuth Client ID first");
+        gdriveClientIdInput.focus();
+        throw new Error("Missing Client ID");
+      }
+      localStorage.setItem(SYNC_KEYS.driveClientId, clientId);
+      await loadGisScript();
+
+      return new Promise((resolve, reject) => {
+        try {
+          const tokenClient = window.google.accounts.oauth2.initTokenClient({
+            client_id: clientId,
+            scope: "https://www.googleapis.com/auth/drive.file",
+            callback: resp => {
+              if (resp && resp.access_token) {
+                gdriveAccessToken = resp.access_token;
+                gdriveTokenExpiry = Date.now() + ((resp.expires_in || 3500) * 1000);
+                setGdrivePill("connected", "Connected");
+                resolve(resp.access_token);
+              } else {
+                reject(new Error(resp && resp.error ? resp.error : "Authorization cancelled"));
+              }
+            }
+          });
+          tokenClient.requestAccessToken({ prompt: promptMode });
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    async function ensureGdriveToken() {
+      if (gdriveAccessToken && Date.now() < gdriveTokenExpiry - 60000) {
+        return gdriveAccessToken;
+      }
+      return requestGdriveToken("");
+    }
+
+    async function gdriveFetchJson(url, opts = {}) {
+      const res = await fetch(url, {
+        ...opts,
+        headers: {
+          Authorization: `Bearer ${gdriveAccessToken}`,
+          ...(opts.headers || {})
+        }
+      });
+      if (!res.ok) {
+        if (res.status === 401) gdriveAccessToken = null;
+        throw new Error(`Drive API error (${res.status})`);
+      }
+      return res.json();
+    }
+
+    async function ensureDriveFolderPath(pathStr) {
+      const segments = normalizeSyncPath(pathStr).split("/").filter(Boolean);
+      let parentId = "root";
+      for (const name of segments) {
+        const escaped = name.replace(/'/g, "\\'");
+        const q = `mimeType='application/vnd.google-apps.folder' and name='${escaped}' and '${parentId}' in parents and trashed=false`;
+        const search = await gdriveFetchJson(
+          `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id,name)&spaces=drive`
+        );
+        if (search.files && search.files.length) {
+          parentId = search.files[0].id;
+        } else {
+          const created = await gdriveFetchJson("https://www.googleapis.com/drive/v3/files?fields=id", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              mimeType: "application/vnd.google-apps.folder",
+              parents: [parentId]
+            })
+          });
+          parentId = created.id;
+        }
+      }
+      return parentId;
+    }
+
+    async function syncWithGoogleDrive() {
+      gdriveSyncBtn.disabled = true;
+      setGdrivePill("syncing", "Syncing...");
+      try {
+        await ensureGdriveToken();
+        const folderPath = normalizeSyncPath(gdriveFolderPathInput.value);
+        gdriveFolderPathInput.value = folderPath;
+        localStorage.setItem(SYNC_KEYS.drivePath, folderPath);
+
+        const folderId = await ensureDriveFolderPath(folderPath);
+        const q = `name='${BACKUP_FILENAME}' and '${folderId}' in parents and trashed=false`;
+        const found = await gdriveFetchJson(
+          `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=files(id,name,modifiedTime)&spaces=drive`
+        );
+
+        let fileId = (found.files && found.files.length) ? found.files[0].id : null;
+
+        // If remote backup exists, download and merge so both devices stay in sync
+        if (fileId) {
+          const dlRes = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+            headers: { Authorization: `Bearer ${gdriveAccessToken}` }
+          });
+          if (dlRes.ok) {
+            try {
+              const remoteJson = await dlRes.json();
+              if (remoteJson && remoteJson.data) applyBackupPayload(remoteJson, true);
+            } catch {}
+          }
+        }
+
+        const payloadStr = JSON.stringify(buildBackupPayload(), null, 2);
+        const boundary = "pocket_channel_sync_boundary_" + Date.now();
+        const metadata = fileId
+          ? { name: BACKUP_FILENAME, mimeType: "application/json" }
+          : { name: BACKUP_FILENAME, mimeType: "application/json", parents: [folderId] };
+
+        const multipartBody =
+          `--${boundary}\r\n` +
+          `Content-Type: application/json; charset=UTF-8\r\n\r\n` +
+          `${JSON.stringify(metadata)}\r\n` +
+          `--${boundary}\r\n` +
+          `Content-Type: application/json\r\n\r\n` +
+          `${payloadStr}\r\n` +
+          `--${boundary}--`;
+
+        const uploadUrl = fileId
+          ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
+          : "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
+
+        const upRes = await fetch(uploadUrl, {
+          method: fileId ? "PATCH" : "POST",
+          headers: {
+            Authorization: `Bearer ${gdriveAccessToken}`,
+            "Content-Type": `multipart/related; boundary=${boundary}`
+          },
+          body: multipartBody
+        });
+
+        if (!upRes.ok) throw new Error(`Upload failed (${upRes.status})`);
+
+        localStorage.setItem(SYNC_KEYS.driveLast, String(Date.now()));
+        setGdrivePill("connected", "Synced");
+        updateSyncSummaryUI();
+        showToast(`Synced to Drive: ${folderPath}`);
+      } catch (err) {
+        setGdrivePill("", "Ready");
+        if (err && err.message !== "Missing Client ID") {
+          showToast(err.message || "Google Drive sync failed");
+        }
+      } finally {
+        gdriveSyncBtn.disabled = false;
+      }
+    }
+
+    gdriveConnectBtn.addEventListener("click", async () => {
+      try {
+        setGdrivePill("syncing", "Connecting...");
+        await requestGdriveToken("consent");
+        showToast("Google Drive connected");
+      } catch (err) {
+        setGdrivePill("", "Ready");
+        if (err && err.message !== "Missing Client ID") {
+          showToast(err.message || "Connection cancelled");
+        }
+      }
+    });
+
+    gdriveSyncBtn.addEventListener("click", () => syncWithGoogleDrive());
+
+    // Setup Guide Modal
+    function openGdriveGuide() {
+      currentOriginCode.textContent = window.location.origin || "https://your-username.github.io";
+      gdriveGuideModal.classList.add("open");
+    }
+    function closeGdriveGuide() {
+      gdriveGuideModal.classList.remove("open");
+    }
+
+    gdriveGuideBtn.addEventListener("click", openGdriveGuide);
+    document.getElementById("closeGdriveGuideBtn").addEventListener("click", closeGdriveGuide);
+    document.getElementById("closeGdriveGuideBtn2").addEventListener("click", closeGdriveGuide);
+    gdriveGuideModal.addEventListener("click", e => {
+      if (e.target === gdriveGuideModal) closeGdriveGuide();
+    });
+    document.getElementById("copyOriginBtn").addEventListener("click", async () => {
+      const origin = currentOriginCode.textContent;
+      try { await navigator.clipboard.writeText(origin); } catch {}
+      showToast("Origin copied: " + origin);
+    });
+
+    // Restore persisted directory handle on load
+    loadDirHandleFromIdb().then(h => {
+      if (h) linkedDirHandle = h;
+      updateSyncSummaryUI();
+    });
+    updateSyncSummaryUI();
+
     /* ==========================================================
        INIT
        ========================================================== */
     updateHeaderFavState();
     syncRadioFilters();
     loadRadioDirectory(false);
-  </script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      });
-    }
   </script>
 </body>
 </html>
